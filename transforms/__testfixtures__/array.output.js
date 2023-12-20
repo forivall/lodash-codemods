@@ -32,3 +32,8 @@ a.slice(a.length - n);
 [1, 2, 3][[1, 2, 3].length - 1];
 [1, 2, 3].slice([1, 2, 3].length - 2);
 [1, 2, 3].slice([1, 2, 3].length - n);
+
+a.includes(n);
+a.includes(n, 2);
+[1, 2, 3].includes(n);
+[1, 2, 3].includes(n, 2);

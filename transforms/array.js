@@ -14,6 +14,7 @@ const methods = /** @type {const} */ ([
     'last',
     'tail',
     'rest',
+    'includes',
 ]);
 
 /** @type {import('jscodeshift').Transform} */
@@ -102,6 +103,15 @@ module.exports = (file, api) => {
                         );
                     }
                     break;
+                case 'includes':
+                    if (args.length)
+                        return j.callExpression(
+                            j.memberExpression(
+                                args[0],
+                                j.identifier('includes')
+                            ),
+                            args.slice(1)
+                        );
             }
         })
         .toSource();

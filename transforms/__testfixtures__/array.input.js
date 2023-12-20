@@ -32,3 +32,8 @@ _.last(a, n);
 _.last([1, 2, 3]);
 _.last([1, 2, 3], 2);
 _.last([1, 2, 3], n);
+
+_.includes(a, n);
+_.includes(a, n, 2);
+_.includes([1, 2, 3], n);
+_.includes([1, 2, 3], n, 2);
