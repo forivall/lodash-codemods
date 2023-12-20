@@ -1,5 +1,16 @@
-const methods = ['bind', 'partial'];
+/**
+ * @template T
+ * @typedef {import('../jscodeshift_loose').ExclusifyProps<T>} ExclusifyProps
+ */
+/**
+ * @template T
+ * @typedef {import('../jscodeshift_loose').ExclusifyUnion<T>} ExclusifyUnion
+ */
 
+/** @type {unknown[]} */
+const methods = /** @type {const} */ (['bind', 'partial']);
+
+/** @type {import('jscodeshift').Transform} */
 module.exports = (file, api) => {
     const j = api.jscodeshift;
 
@@ -10,7 +21,8 @@ module.exports = (file, api) => {
         .filter(p => {
             const callee = p.value.callee;
             if (callee.type === 'MemberExpression') {
-                const {object, property} = callee;
+                const {object, property} =
+                    /** @type {ExclusifyProps<typeof callee>} */ (callee);
                 if (
                     object.name === '_' &&
                     methods.indexOf(property.name) !== -1
@@ -21,11 +33,16 @@ module.exports = (file, api) => {
             return false;
         })
         .replaceWith(p => {
-            const {property} = p.value.callee;
+            const {property} =
+                /** @type {ExclusifyUnion<typeof p.value.callee>} */ (
+                    p.value.callee
+                );
             const {arguments: args} = p.value;
             const [fn, ...rest] = args;
 
-            switch (property.name) {
+            switch (
+                /** @type {ExclusifyUnion<typeof property>} */ (property).name
+            ) {
                 case 'bind':
                     return j.callExpression(
                         j.memberExpression(fn, j.identifier('bind')),
