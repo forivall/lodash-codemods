@@ -1,5 +1,5 @@
 var point = {
-  ...{x:5, y:10}
+  ...{x: 5, y: 10}
 };
 var obj2 = {
   ...obj
@@ -15,11 +15,11 @@ const obj = {
 Object.assign(this, objA, objB);
 Object.assign({x: 5, y: 10}, objA, objB);
 
-Object.keys({x:5, y:10});
+Object.keys({x: 5, y: 10});
 Object.keys(obj);
 
-Object.values({x:5, y:10});
+Object.values({x: 5, y: 10});
 Object.values(obj);
 
-Object.entries({x:5, y:10});
+Object.entries({x: 5, y: 10});
 Object.entries(obj);

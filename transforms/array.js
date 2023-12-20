@@ -11,7 +11,10 @@ module.exports = (file, api) => {
             const callee = p.value.callee;
             if (callee.type === 'MemberExpression') {
                 const {object, property} = callee;
-                if (object.name === '_' && methods.indexOf(property.name) !== -1) {
+                if (
+                    object.name === '_' &&
+                    methods.indexOf(property.name) !== -1
+                ) {
                     return true;
                 }
             }
@@ -25,11 +28,7 @@ module.exports = (file, api) => {
                 case 'first':
                 case 'head':
                     if (args.length === 1) {
-                        return j.memberExpression(
-                            args[0],
-                            j.literal(0),
-                            true
-                        );
+                        return j.memberExpression(args[0], j.literal(0), true);
                     } else {
                         return j.callExpression(
                             j.memberExpression(args[0], j.identifier('slice')),
@@ -47,7 +46,7 @@ module.exports = (file, api) => {
                         return j.callExpression(
                             j.memberExpression(args[0], j.identifier('slice')),
                             [args[1]]
-                        )
+                        );
                     }
                     break;
                 case 'last':
@@ -56,7 +55,10 @@ module.exports = (file, api) => {
                             args[0],
                             j.binaryExpression(
                                 '-',
-                                j.memberExpression(args[0], j.identifier('length')),
+                                j.memberExpression(
+                                    args[0],
+                                    j.identifier('length')
+                                ),
                                 j.literal(1)
                             ),
                             true
@@ -64,16 +66,20 @@ module.exports = (file, api) => {
                     } else {
                         return j.callExpression(
                             j.memberExpression(args[0], j.identifier('slice')),
-                            [j.binaryExpression(
-                                '-',
-                                j.memberExpression(args[0], j.identifier('length')),
-                                args[1]
-                            )]
+                            [
+                                j.binaryExpression(
+                                    '-',
+                                    j.memberExpression(
+                                        args[0],
+                                        j.identifier('length')
+                                    ),
+                                    args[1]
+                                ),
+                            ]
                         );
                     }
                     break;
             }
-
         })
         .toSource();
 };

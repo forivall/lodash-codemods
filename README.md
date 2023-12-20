@@ -1,4 +1,5 @@
 # codemods
+
 A collection of codemods for performing automated code refactoring.
 
 # Usage
@@ -17,8 +18,8 @@ Finally, run one of the codemods on your code.
 
 # Transforms
 
-Multiple transforms are grouped into a single codemod.  Some transforms output
-ES2016+ code.  Please check the output and verify that the code will work for
+Multiple transforms are grouped into a single codemod. Some transforms output
+ES2016+ code. Please check the output and verify that the code will work for
 you before committing changes.
 
 ### array.js

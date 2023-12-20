@@ -1,5 +1,11 @@
-const methods= [
-    'isArray', 'isBoolean', 'isFinite', 'isFunction', 'isNull', 'isString', 'isUndefined'
+const methods = [
+    'isArray',
+    'isBoolean',
+    'isFinite',
+    'isFunction',
+    'isNull',
+    'isString',
+    'isUndefined',
 ];
 
 module.exports = (file, api) => {
@@ -13,7 +19,10 @@ module.exports = (file, api) => {
             const callee = p.value.callee;
             if (callee.type === 'MemberExpression') {
                 const {object, property} = callee;
-                if (object.name === '_' && methods.indexOf(property.name) !== -1) {
+                if (
+                    object.name === '_' &&
+                    methods.indexOf(property.name) !== -1
+                ) {
                     return true;
                 }
             }
@@ -53,11 +62,7 @@ module.exports = (file, api) => {
                         j.literal('function')
                     );
                 case 'isNull':
-                    return j.binaryExpression(
-                        '===',
-                        args[0],
-                        j.literal(null)
-                    );
+                    return j.binaryExpression('===', args[0], j.literal(null));
                 case 'isString':
                     return j.binaryExpression(
                         '===',

@@ -11,7 +11,10 @@ module.exports = (file, api) => {
             const callee = p.value.callee;
             if (callee.type === 'MemberExpression') {
                 const {object, property} = callee;
-                if (object.name === '_' && methods.indexOf(property.name) !== -1) {
+                if (
+                    object.name === '_' &&
+                    methods.indexOf(property.name) !== -1
+                ) {
                     return true;
                 }
             }
@@ -32,13 +35,12 @@ module.exports = (file, api) => {
                     // TODO: handle _.partial(fn, a, _, c)
                     return j.arrowFunctionExpression(
                         [j.restElement(j.identifier('args'))],
-                        j.callExpression(
-                            fn,
-                            [...rest, j.spreadElement(j.identifier('args'))]
-                        )
+                        j.callExpression(fn, [
+                            ...rest,
+                            j.spreadElement(j.identifier('args')),
+                        ])
                     );
             }
-
         })
         .toSource();
 };

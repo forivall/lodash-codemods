@@ -11,7 +11,10 @@ module.exports = (file, api) => {
             const callee = p.value.callee;
             if (callee.type === 'MemberExpression') {
                 const {object, property} = callee;
-                if (object.name === '_' && methods.indexOf(property.name) !== -1) {
+                if (
+                    object.name === '_' &&
+                    methods.indexOf(property.name) !== -1
+                ) {
                     return true;
                 }
             }
@@ -25,15 +28,19 @@ module.exports = (file, api) => {
                 case 'clone':
                     return j.objectExpression([j.spreadProperty(args[0])]);
                 case 'extend':
-                    if (args[0].type === 'ObjectExpression' && args[0].properties.length === 0) {
-                        const [ , ...rest] = args;
+                    if (
+                        args[0].type === 'ObjectExpression' &&
+                        args[0].properties.length === 0
+                    ) {
+                        const [, ...rest] = args;
                         return j.objectExpression(
-                            rest.map((arg) => j.spreadProperty(arg))
+                            rest.map(arg => j.spreadProperty(arg))
                         );
                     } else {
                         return j.callExpression(
                             j.memberExpression(
-                                j.identifier('Object'), j.identifier('assign')
+                                j.identifier('Object'),
+                                j.identifier('assign')
                             ),
                             args
                         );
